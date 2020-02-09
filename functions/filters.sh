@@ -1,13 +1,22 @@
 # Autor: Rubén Herreros
 # Función: 
 
-function getFilter() {
-    typeFilter=$1
-    textFilter=$2    
-    grep –v "#" /home/ruben/Escritorio/gitsalsa/databases/${typeFilter}.log | grep "${textFilter}"
+
+
+function getByDate() {
+let date = $1
+let order = $2
+
+
 }
 
-function getAll() {
-    typeFilter=$1
-    grep –v "#" /home/ruben/Escritorio/gitsalsa/databases/${typeFilter}.log
+function getByType() {
+
+
+
+}
+
+function getHolaMundo() {
+    let text=$1
+    echo $text
 }
