@@ -5,9 +5,9 @@
 repositorio=$(zenity --file-selection --directory)
 funcRepo=$(openRepository $repositorio)
 if [[ $funcRepo == "No repo" ]]; then
-	zenity --error --text "El directorio seleccionado no es un repositorio"
-	../app.sh
+    zenity --error --text "El directorio seleccionado no es un repositorio"
+    ./app.sh
 else
-	export $repositorio
-	export $funcRepo
+    echo "${repositorio}:${funcRepo}" > databases/repo.tmp
+    menuRepo=$(zenity --list --title "Usando repositorio ${funcRepo}" --column Acción "Branches" "Commit" "Comparar cambios" "Salir" )
 fi

@@ -7,6 +7,9 @@ function newBranch(){
 	params=$1
 	while [[ $2 -eq '' ]]; do
 		if [[ git rev-parse --verify $2 ]]; then
+			echo 'La rama' $2 'ya existe, por lo tanto se ha omitido'
+			# ejecutar codigo de log
+		else 
 			git checkout -b ${params} $2
 			if [[ git checkout -b ${params} $2 ]]; then
 				echo 'Se ha producido un error durante la creación del repositorio ' $2
@@ -30,6 +33,10 @@ function changeBranch(){
 			#ejecutar codigo de log
 		else
 			git checkout ${name}
+			git checkout ${name}
+		else
+			echo 'Se ha producido un error durante la creación de la rama ' $name
+			#ejecutar codigo de log
 		fi
 	else
 		echo 'La rama no existe'

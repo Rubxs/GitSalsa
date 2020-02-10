@@ -2,6 +2,7 @@
 # Función: 
 
 # Cargando las funciones
+<<<<<<< Updated upstream
 . functions/filters.sh
 . functions/log.sh
 
@@ -12,3 +13,8 @@ if [[ "$historic" == "Histórico" ]]; then
 elif [[ "$historic" == "Errores" ]]; then
 	./components/historic-err.sh
 fi
+=======
+. ../functions/filters.sh
+
+echo `getHolaMundo HolaMundo`
+>>>>>>> Stashed changes

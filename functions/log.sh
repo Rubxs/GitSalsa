@@ -1,14 +1,13 @@
 # Autor: Rubén Herreros
+<<<<<<< Updated upstream
 # Funciones para la creación y gestión de los archivos LOG del programa.
+=======
+# Función: 
+>>>>>>> Stashed changes
 
 function setLog() {
-    type=$1
-    id=$2
-    user=$3
-    action=$4
-    repository=$5
-    message=$6
 
+<<<<<<< Updated upstream
     if [ $type == 'error' ]
         then
             echo $id':'$user':'$action':'$repository':'$message >> ./databases/error.log
@@ -16,3 +15,6 @@ function setLog() {
             echo $id':'$user':'$action':'$repository':'$message >> ./databases/historic.log
     fi
 }
+=======
+}
+>>>>>>> Stashed changes
