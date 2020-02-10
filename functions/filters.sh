@@ -1,22 +1,14 @@
 # Autor: Rubén Herreros
-# Función: 
+# Funciones para recoger la información de los logs. 
 
-
-
-function getByDate() {
-let date = $1
-let order = $2
-
-
+function getFilter() {
+    typeFilter=$1
+    actionFilter=$2
+    textFilter=$3
+    grep "${textFilter}" databases/${typeFilter}.log | grep –v "#"
 }
 
-function getByType() {
-
-
-
-}
-
-function getHolaMundo() {
-    let text=$1
-    echo $text
+function getAll() {
+    typeFilter=$1
+    cat databases/${typeFilter}.log | grep –v "#"
 }
