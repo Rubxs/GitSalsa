@@ -10,6 +10,7 @@ elif [[ "$menu" == "Crear uno o varios repositorios" ]]; then
     zenity --info --text "Ha seleccionado crear uno o varios repositorios, siga los pasos a continuación"
     components/create-repos.sh
 elif [[ "$menu" == "Ver historico" ]]; then
+	components/historic.sh
     echo 'Ver historico'
 elif [[ "$menu" == "Salir" ]]; then
     echo "Salir"

@@ -11,7 +11,8 @@ echo $filters
 if [[ "$filters" == "Id" ]]; then
 	idAnswer=$(zenity --entry --text "Introduce Id")
 	log=`getFilter $logType id $idAnswer`
-	zenity --info --text "${log}"
+	#zenity --info --text "${log}"
+	echo "${log}"
 elif [[ "$filters" == "Usuario" ]]; then
 	userAnswer=$(zenity --entry --text "Introduce Usuario")
 	log=`getFilter ${logType} user $szAnswer`

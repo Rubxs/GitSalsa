@@ -12,9 +12,9 @@ while [[ $contador -ne 0 ]]; do
 	dir=$(zenity --file-selection --directory)
 	func=$(createRepository $nombre $dir)
 	if [[ $func == "Correcto" ]]; then
-		let buenos=buenos+1
+		let buenos=$buenos+1
 	else
-		let malos=1
+		let malos=$malos+1
 		$losMalos="$losMalos - $nombre"
 	fi
 	let contador=contador-1
