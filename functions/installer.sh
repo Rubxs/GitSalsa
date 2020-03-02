@@ -1,5 +1,6 @@
 #Autor:Gines Carmona
 #Condicional que se encarga de hacer la instalacion de git dependiendo del gestor de paquetes que tienes instalado 
+. ..functions/log.sh
 function Installer(){
 sudo apt-get update 2>control ##Si tiene el gestor apt
 if [ $? -ne 0 ]; 
@@ -27,22 +28,25 @@ then
 							else
 								rm control
 								sudo pacman -S $1
+								setLog historic user_name install null Install_pacman_git
 							fi
 						fi
 					else 
 						rm control
 						sudo zypper install $1
-						
+						setLog historic user_name install null Install_zypper_git
 					fi
 				fi
 				else 
 					rm control
-					sudo yum -y install $1			
+					sudo yum -y install $1
+					setLog historic user_name install null Install_yum_git		
 		fi
 	fi
 else
 	rm control
 	sudo apt-get install $1
+	setLog historic user_name install null Install_apt_git
 
 	
 fi
