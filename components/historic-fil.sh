@@ -6,23 +6,20 @@
 . functions/log.sh
 
 logType=$1
+actionType=$2
+
+
 filters=$(zenity --list --title "Seleccione una opción" --column Acción "Id" "Usuario" "Acción" "Mensaje")
-echo $filters
-if [[ "$filters" == "Id" ]]; then
-	idAnswer=$(zenity --entry --text "Introduce Id")
-	log=`getFilter $logType id $idAnswer`
-	#zenity --info --text "${log}"
-	echo "${log}"
-elif [[ "$filters" == "Usuario" ]]; then
-	userAnswer=$(zenity --entry --text "Introduce Usuario")
-	log=`getFilter ${logType} user $szAnswer`
-	zenity --info --text "${log}"
-elif [[ "$filters" == "Acción" ]]; then
-	actionAnswer=$(zenity --entry --text "Introduce Acción")
-	log=`getFilter ${logType} action $szAnswer`
-	zenity --info --text "${log}"
-elif [[ "$filters" == "Mensaje" ]]; then
-	messageAnswer=$(zenity --entry --text "Introduce Mensaje")
-	log=`getFilter ${logType} message $szAnswer`
-	zenity --info --text "${log}"
+
+if [[ "${actionType}" == "getFilter" ]]; then
+    idAnswer=$(zenity --entry --text "Introduce ${filters}, uno o varios separados por espacio")
+    typeFile=log
+    ${actionType} ${logType} ${filters} ${idAnswer}
+elif [[ "$actionType" == "getGraphic" ]]; then
+    typeFile=data
+    ${actionType} ${logType} ${filters}
 fi
+
+read -p "Pulsa Enter para continuar..."
+clear
+./components/create-file.sh ${typeFile}

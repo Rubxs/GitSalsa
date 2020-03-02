@@ -8,7 +8,7 @@
 historic=$(zenity --list --title "Seleccione una opción" --column Acción "Histórico" "Errores")
 
 if [[ "$historic" == "Histórico" ]]; then
-    ./components/historic-his.sh
+    ./components/historic-typ.sh historic
 elif [[ "$historic" == "Errores" ]]; then
-    ./components/historic-err.sh
+    ./components/historic-typ.sh error
 fi

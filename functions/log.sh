@@ -3,16 +3,27 @@
 
 function setLog() {
     type=$1
-    id=$2
-    user=$3
-    action=$4
-    repository=$5
-    message=$6
+    id=$(setId ${type})
+    user=$2
+    action=$3
+    repository=$4
+    message=$5
 
-    if [ $type == 'error' ]
-        then
-            echo $id':'$user':'$action':'$repository':'$message >> ./databases/error.log
-        else
-            echo $id':'$user':'$action':'$repository':'$message >> ./databases/historic.log
+    echo ${id}:${user}:${action}:${repository}:${message} >> ./databases/${type}.log
+}
+
+function setId() {
+    fileType=$1
+    lastId=$(grep -v '#' ./databases/${fileType}.log | tail -n1 | cut -d: -f1)
+    if [[ ${last} =~ '^[0-9]+$' ]]; then
+        let newId=0
+    else
+        let newId=${lastId}+1
     fi
+    let charNums=$(echo ${newId} | wc -m)
+    while [[ ${charNums} -le 5 ]];do
+        newId="0${newId}"
+        let charNums=${charNums}+1
+    done
+    echo ${newId}
 }
