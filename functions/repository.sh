@@ -1,6 +1,5 @@
 #Autor: Juan Esteban Roig Perez
 #Funcionalidad: Funciones para la gestión de repositorios
-. log.sh
 
 
 function openRepository(){
@@ -13,13 +12,13 @@ function openRepository(){
 }
 
 function createRepository(){
-	reponame=$1
+	reponame=$(echo "$1" | tr " " "_")
 	repodir=$2
 	if [[ -d "$repodir" ]]; then
 		actual=$(pwd)
 		mkdir "${repodir}/${reponame}"
 		cd "${repodir}/${reponame}"
-		git init
+		git init > nul
 		cd $actual
 		echo "Correcto"
 	else

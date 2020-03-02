@@ -1,66 +1,30 @@
 #Autor: Juan Esteban Roig Perez
 #Funcionalidad: Funciones para la gestión de ramas
-. log.sh
 
-#Crea una nueva rama
+. functions/log.sh
 function newBranch(){
-	params=$1
-	while [[ $2 -eq '' ]]; do
-		if [[ git rev-parse --verify $2 ]]; then
-			echo 'La rama' $2 'ya existe, por lo tanto se ha omitido'
-			# ejecutar codigo de log
-		else 
-			git checkout -b ${params} $2
-			if [[ git checkout -b ${params} $2 ]]; then
-				echo 'Se ha producido un error durante la creación del repositorio ' $2
-				#ejecutar codigo de log
-			fi
-		else 
-			echo 'La rama' $2 'ya existe, por lo tanto se ha omitido'
-			# ejecutar codigo de log
-		fi 
-		#ejecutar codigo de log
-		shift
-	done
-}
-
-#cambia la rama
-function changeBranch(){
-	name=$1
- 	if [[ git rev-parse --verify $name ]]; then
-		if [[ git checkout ${name} ]]; then
-			echo 'Se ha producido un error durante la creación de la rama ' $name
-			#ejecutar codigo de log
-		else
-			git checkout ${name}
-			git checkout ${name}
-		else
-			echo 'Se ha producido un error durante la creación de la rama ' $name
-			#ejecutar codigo de log
-		fi
+	if [[ `git branch --list $1` ]]; then
+		echo "false"
 	else
-		echo 'La rama no existe'
-	fi 
+		directory=$(cut -f 1 -d ':' databases/repo.tmp)
+		repository=$(cut -f 2 -d ':' databases/repo.tmp)
+		dirAnterior=$(pwd)
+		cd $repoDir
+		git checkout -b $1
+		cd $dirAnterior
+		echo "$repoDir:$repoName:$1" >>  databases/branches.db
+		echo "true"
+	fi
 }
 
-#borra la rama (nombre,remota)
 function deleteBranch(){
-	while [[ $1 -eq '' ]]; do
-		if [[ git rev-parse --verify $1 ]]; then
-			if [[ git branch -d $1 ]]; then
-				git branch -d $1
-				#ejecutar codigo de log
-			else
-				echo 'Se ha producido un error durante la creación del repositorio ' $2
-				#ejecutar codigo de log
-			fi
-		else 
-			echo 'La rama' $2 'no existe, por lo tanto se ha omitido'
-			# ejecutar codigo de log
-		fi 
-		#ejecutar codigo de log
-		shift
-	done
+	if grep -qF "$1" databases/branches.db
+	then
+		grep -v "$1" databases/branches.db > databases/branches.db.tmp
+		cat databases/branches.db.tmp > databases/branches.db
+		rm databases/branches.db.tmp
+	    echo "true"
+	else
+	   echo "false"
+	fi
 }
-
-#test
