@@ -1,39 +1,29 @@
 #Subir archivos a github
 #Autor Gines Carmona
-function upload(){
-if [ -d ".git" ]; then
-	arxi=$(zenity --title="Archivos a subir al repositorio" --entry --text "Cuantos archivos quieres subir")
- 	while [[ $arxi -ne 0 ]]; do
- 		let arxi=$arxi-1
- 		nom=$(zenity --file-selection --title="Seleccione archivo")
- 		if [[ -f $nom ]]; then
- 			 echo git add $nom
- 		else
- 			echo El archivos selecionado $nom no existen en este equipo
- 			exit
- 		fi
- 		
- 	done
-
- 	zenity --question --text "¿Quieres comprobar el estado de stagigng index?"
- 	if [[ $? -eq 0 ]]; then
- 		git status
- 		uploadgit
- 			else
- 				uploadgit
- 	fi
- else
- 	echo Esta carpeta no contien un repositorio git
-fi 
-
+function gitignore(){
+	ori=$(zenity --file-selection --directory --title="Seleccione archivo")
+	cd $ori
+	if [ -d ".git" ]; then
+		if [[ ! -f ".gitignore" ]]; then
+			touch .gitignore
+		fi
+		arxi=$(zenity --title="Archivos a subir al gitignore" --entry --text "Cuantos archivos quieres subir")
+		while [[ $arxi -ne 0 ]]; do
+			let arxi=$arxi-1
+			nom=$(zenity --file-selection --title="Seleccione archivo")
+			nom2=$(basename $nom)
+			cat .gitignore | grep "$nom2" 2>> error
+				if [[ $? -eq 0 ]]; then
+					echo $nom2 ya esta dentro .gitignore
+					rm error
+				else
+					echo $nom2 >> .gitignore
+					rm error
+				
+				fi
+		done
+		else
+			echo No puedes usar el .gitignore en este directorio
+fi
 }
-function uploadgit(){
-	$(zenity --question --text "¿Subir repositorios a Github?")
- 		if [[ $? -eq 0 ]]; then
- 			echo Introducir mensaje para el cuerpo del commit:
- 			read mens
- 			git commit -m $mens
- 			git push origin master
- 		fi
-}
-upload
+gitignore
